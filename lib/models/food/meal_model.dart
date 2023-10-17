@@ -1,9 +1,11 @@
+
 class MealModel {
   String? idMeal;
   String? strMeal;
   String? strMealThumb;
+  int quantity = 0;
 
-  MealModel({this.idMeal, this.strMeal, this.strMealThumb});
+  MealModel({this.idMeal, this.strMeal, this.strMealThumb, this.quantity = 0});
 
   MealModel.fromJson(Map<String, dynamic> json) {
     fromJson(json);
@@ -13,6 +15,14 @@ class MealModel {
     idMeal = json['idMeal'];
     strMeal = json['strMeal'];
     strMealThumb = json['strMealThumb'];
+  }
+
+  factory MealModel.fromMap(Map<dynamic, dynamic> map) {
+    return MealModel(
+      idMeal: map['idMeal'],
+      strMeal: map['strMeal'],
+      strMealThumb: map['strMealThumb'],
+    );
   }
 
   Map<String, dynamic> toJson() {

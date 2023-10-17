@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lean_scale_food_app/scenes/food_list/food_list_screen.dart';
 import 'package:lean_scale_food_app/scenes/home/category_list_provider.dart';
 import 'package:lean_scale_food_app/utils/constants.dart';
 import 'package:lean_scale_food_app/widgets/custom_food_box.dart';
+import 'package:lean_scale_food_app/widgets/error_dialog.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,17 +23,18 @@ class _HomeScreenState extends State<HomeScreen> {
           return Stack(
             children: [
               Scaffold(
-                backgroundColor: Colors.white38,
+                backgroundColor: Colors.white,
                 appBar: AppBar(
                   backgroundColor: Colors.redAccent,
-                  title: const Center(child: Text(Constants.appName)),
+                  title: const Text(Constants.appName),
                   automaticallyImplyLeading: false,
+                  centerTitle: true,
                 ),
                 body: Column(
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 2),
                         child: GridView.builder(
                             gridDelegate:
                                 const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -40,8 +44,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: categoryListProvider.categories.length,
                             itemBuilder: (context, index) => CustomFoodBox(
                                 onPressed: () {
-                                  //TODO: Go to Food List
-                                  print("pressed");
+                                  categoryListProvider
+                                              .categories[index].strCategory !=
+                                          null
+                                      ? Navigator.push(
+                                          context,
+                                          CupertinoPageRoute(
+                                              builder: (c) => FoodListScreen(
+                                                  categoryName:
+                                                      categoryListProvider
+                                                          .categories[index]
+                                                          .strCategory!)))
+                                      : showDialog(
+                                          context: context,
+                                          builder: (ctx) => const ErrorDialog(
+                                                errorMessage:
+                                                    "Category Is Not Active",
+                                              ));
                                 },
                                 image: categoryListProvider.categories[index]
                                             .strCategoryThumb !=

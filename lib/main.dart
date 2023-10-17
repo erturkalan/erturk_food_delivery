@@ -1,12 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:lean_scale_food_app/scenes/food_list/food_list_provider.dart';
 import 'package:lean_scale_food_app/scenes/home/category_list_provider.dart';
-import 'package:lean_scale_food_app/splash_screen/splash_screen.dart';
+import 'package:lean_scale_food_app/scenes/splash_screen/splash_screen.dart';
+import 'package:lean_scale_food_app/utils/constants.dart';
 import 'package:provider/provider.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  //initialize hive
+  await Hive.initFlutter();
+  //open our boxes
+  var favouriteBox = await Hive.openBox(Constants.favouriteBoxIdentifier);
+  var quantityBox = await Hive.openBox(Constants.quantity);
   runApp(const MyApp());
 }
 
@@ -17,7 +28,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => CategoryListProvider())
+        ChangeNotifierProvider(create: (context) => CategoryListProvider()),
+        ChangeNotifierProvider(create: (context) => FoodListProvider())
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

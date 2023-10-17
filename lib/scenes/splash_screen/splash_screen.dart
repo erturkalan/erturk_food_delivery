@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:lean_scale_food_app/scenes/bottom_nav/bottom_nav_page.dart';
+import 'package:lean_scale_food_app/scenes/food_list/food_list_provider.dart';
 import 'package:lean_scale_food_app/scenes/home/category_list_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<CategoryListProvider>(context, listen: false).getCategories();
+      Provider.of<FoodListProvider>(context, listen: false).getFavouriteMeals();
     });
   }
 
