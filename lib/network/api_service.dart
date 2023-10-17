@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lean_scale_food_app/main.dart';
+import 'package:lean_scale_food_app/widgets/error_dialog.dart';
 
 class ApiService {
-  static var sharedInstance = ApiService();
 
   Future<String> get(String baseUrl, String path,
       {Map<String, dynamic>? parameters}) async {
@@ -75,24 +75,8 @@ class ApiService {
 
 void showMyDialog() {
   showDialog(
-    context: navigatorKey.currentContext!,
-    builder: (ctx) => AlertDialog(
-      title: const Text("Network Error!"),
-      content: const Text(
-        "Something went wrong!",
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-      ),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () {
-            Navigator.of(ctx).pop();
-          },
-          child: const Text(
-            "Okay",
-            style: TextStyle(color: Colors.cyan, fontSize: 17),
-          ),
-        ),
-      ],
-    ),
-  );
+      context: navigatorKey.currentContext!,
+      builder: (ctx) => const ErrorDialog(
+            errorMessage: "Network Error!",
+          ));
 }

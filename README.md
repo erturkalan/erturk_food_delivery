@@ -2,6 +2,12 @@
 
 Hello, I am Erturk Alan and this is a Flutter project.
 
+Used packages
+
+provider: 
+hive:
+http:
+
 
 
 ## Getting Started
