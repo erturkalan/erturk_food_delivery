@@ -43,17 +43,6 @@ class FoodListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getFavouriteMeals() async {
-    if (_favouriteBox.values.isNotEmpty) {
-      for (var element in _favouriteBox.values) {
-        var meal =
-            MealModel.fromMap(element); //get map and turn it into a model
-        _favouriteMeals.add(meal);
-      }
-    }
-    notifyListeners();
-  }
-
   void getBasketMeals() async {
     if (_basketBox.values.isNotEmpty) {
       for (var element in _basketBox.values) {
@@ -63,6 +52,27 @@ class FoodListProvider extends ChangeNotifier {
       }
     }
     updateQuantity();
+    notifyListeners();
+  }
+
+  void getFavouriteMeals() async {
+    if (_favouriteBox.values.isNotEmpty) {
+      for (var element in _favouriteBox.values) {
+        var meal =
+            MealModel.fromMap(element); //get map and turn it into a model
+        _favouriteMeals.add(meal);
+      }
+      for (var item in _foodBasket) {
+        //for changing foodBasket : if they are in the basket we update the item
+        if (_favouriteMeals.any((element) => item.idMeal == element.idMeal)) {
+          var myMeal = _favouriteMeals
+              .firstWhere((element) => item.idMeal == element.idMeal);
+          var index = _favouriteMeals.indexOf(myMeal);
+          _favouriteMeals.removeAt(index);
+          _favouriteMeals.insert(index, item);
+        }
+      }
+    }
     notifyListeners();
   }
 
@@ -159,6 +169,14 @@ class FoodListProvider extends ChangeNotifier {
   }
 
   void clearAllBasket() async {
+    for (var item in _favouriteMeals) {
+      item.quantity = 0;
+    }
+    await _favouriteBox.clear();
+    var favouritesAsMap = _favouriteMeals.map((e) => e.toJson()).toList();
+    for (var item in favouritesAsMap) {
+      await _favouriteBox.put(item['idMeal'], item);
+    }
     _foodBasket.clear();
     await _basketBox.clear();
     updateQuantity();

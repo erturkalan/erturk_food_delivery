@@ -36,7 +36,10 @@ class _BasketScreenState extends State<BasketScreen> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  foodListProvider.clearAllBasket();
+                  if (foodListProvider.basketQuantity > 0) {
+                    showMyDialog(foodListProvider.clearAllBasket,
+                        "Are you sure you want to delete the basket?");
+                  }
                 },
               ),
             )
@@ -71,7 +74,8 @@ class _BasketScreenState extends State<BasketScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                //TODO: Confirm basket
+                showMyDialog(foodListProvider.clearAllBasket,
+                    "You are going to confirm the basket");
               },
               style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.indigo,
@@ -92,10 +96,14 @@ class _BasketScreenState extends State<BasketScreen> {
   }
 }
 
-void showMyDialog() {
+void showMyDialog(Function func, String message) {
   showDialog(
       context: navigatorKey.currentContext!,
-      builder: (ctx) => const CustomDialog(
-            message: "Network Error!",
+      builder: (ctx) => CustomDialog(
+            message: message,
+            okText: "Yes",
+            okPressed: () => func(),
+            isSecondButtonAvailable: true,
+            secondButtonText: "Cancel",
           ));
 }

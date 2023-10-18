@@ -22,8 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
     });
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<CategoryListProvider>(context, listen: false).getCategories();
-      Provider.of<FoodListProvider>(context, listen: false).getFavouriteMeals();
       Provider.of<FoodListProvider>(context, listen: false).getBasketMeals();
+      Provider.of<FoodListProvider>(context, listen: false).getFavouriteMeals();
     });
   }
 

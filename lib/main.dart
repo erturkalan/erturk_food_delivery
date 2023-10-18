@@ -29,9 +29,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CategoryListProvider()),
         ChangeNotifierProvider(create: (context) => FoodListProvider())
       ],
-      child: const MaterialApp(
+      child: MaterialApp(
+        navigatorKey: navigatorKey,
         debugShowCheckedModeBanner: false,
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }
