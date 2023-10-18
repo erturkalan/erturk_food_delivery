@@ -1,4 +1,3 @@
-
 class MealModel {
   String? idMeal;
   String? strMeal;
@@ -22,6 +21,7 @@ class MealModel {
       idMeal: map['idMeal'],
       strMeal: map['strMeal'],
       strMealThumb: map['strMealThumb'],
+      quantity: map['quantity'] ?? 0,
     );
   }
 
@@ -30,6 +30,8 @@ class MealModel {
     data['idMeal'] = idMeal;
     data['strMeal'] = strMeal;
     data['strMealThumb'] = strMealThumb;
+    data['quantity'] = quantity;
+
     return data;
   }
 }

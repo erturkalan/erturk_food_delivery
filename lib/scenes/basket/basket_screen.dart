@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lean_scale_food_app/scenes/food_list/food_list_provider.dart';
+import 'package:lean_scale_food_app/utils/constants.dart';
+import 'package:lean_scale_food_app/widgets/basket_line_box.dart';
+import 'package:provider/provider.dart';
 
 class BasketScreen extends StatefulWidget {
   const BasketScreen({Key? key}) : super(key: key);
@@ -10,6 +14,76 @@ class BasketScreen extends StatefulWidget {
 class _BasketScreenState extends State<BasketScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Consumer<FoodListProvider>(
+        builder: ((context, foodListProvider, child) {
+      return Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.indigo,
+          title: const Text(
+            Constants.basketPageTitle,
+            style: TextStyle(
+                color: Colors.white, fontWeight: FontWeight.w700, fontSize: 22),
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // do something
+                },
+              ),
+            )
+          ],
+          elevation: 0.5,
+          centerTitle: true,
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20, 14, 20, 2),
+                child: ListView.builder(
+                    itemCount: foodListProvider.foodBasket.length,
+                    itemBuilder: (context, index) {
+                      var meal = foodListProvider.foodBasket[index];
+                      return BasketLineBox(
+                        name: meal.strMeal != null ? meal.strMeal! : "N/A",
+                        image: meal.strMealThumb != null
+                            ? meal.strMealThumb!
+                            : null,
+                        decreasePressed: () =>
+                            foodListProvider.decreaseQuantity(meal),
+                        increasedPressed: () =>
+                            foodListProvider.increaseQuantity(meal),
+                        quantity: meal.quantity,
+                      );
+                    }),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                //TODO: Confirm basket
+              },
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.indigo,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 14)),
+              child: const Text(
+                "Confirm Basket",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            const SizedBox(
+              height: 60,
+            )
+          ],
+        ),
+      );
+    }));
   }
 }

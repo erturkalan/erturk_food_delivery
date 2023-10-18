@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lean_scale_food_app/scenes/food_list/food_list_provider.dart';
 import 'package:lean_scale_food_app/scenes/home/category_list_provider.dart';
@@ -17,7 +15,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   //open our boxes
   var favouriteBox = await Hive.openBox(Constants.favouriteBoxIdentifier);
-  var quantityBox = await Hive.openBox(Constants.quantity);
+  var basketBox = await Hive.openBox(Constants.basketBox);
   runApp(const MyApp());
 }
 

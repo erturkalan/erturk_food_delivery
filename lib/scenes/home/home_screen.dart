@@ -17,77 +17,75 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Consumer<CategoryListProvider>(
-        builder: ((context, categoryListProvider, child) {
-          return Stack(
-            children: [
-              Scaffold(
-                backgroundColor: Colors.white,
-                appBar: AppBar(
-                  backgroundColor: Colors.redAccent,
-                  title: const Text(Constants.appName),
-                  automaticallyImplyLeading: false,
-                  centerTitle: true,
-                ),
-                body: Column(
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(20, 20, 20, 2),
-                        child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 160,
-                                    crossAxisSpacing: 8,
-                                    childAspectRatio: 0.54),
-                            itemCount: categoryListProvider.categories.length,
-                            itemBuilder: (context, index) => CustomFoodBox(
-                                onPressed: () {
-                                  categoryListProvider
-                                              .categories[index].strCategory !=
-                                          null
-                                      ? Navigator.push(
-                                          context,
-                                          CupertinoPageRoute(
-                                              builder: (c) => FoodListScreen(
-                                                  categoryName:
-                                                      categoryListProvider
-                                                          .categories[index]
-                                                          .strCategory!)))
-                                      : showDialog(
-                                          context: context,
-                                          builder: (ctx) => const ErrorDialog(
-                                                errorMessage:
-                                                    "Category Is Not Active",
-                                              ));
-                                },
-                                image: categoryListProvider.categories[index]
-                                            .strCategoryThumb !=
-                                        null
-                                    ? categoryListProvider
-                                        .categories[index].strCategoryThumb!
-                                    : null,
-                                title: categoryListProvider
+    return Consumer<CategoryListProvider>(
+      builder: ((context, categoryListProvider, child) {
+        return Stack(
+          children: [
+            Scaffold(
+              backgroundColor: Colors.white,
+              appBar: AppBar(
+                backgroundColor: Colors.redAccent,
+                title: const Text(Constants.appName),
+                automaticallyImplyLeading: false,
+                centerTitle: true,
+              ),
+              body: Column(
+                children: [
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 2),
+                      child: GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithMaxCrossAxisExtent(
+                                  maxCrossAxisExtent: 160,
+                                  crossAxisSpacing: 8,
+                                  childAspectRatio: 0.54),
+                          itemCount: categoryListProvider.categories.length,
+                          itemBuilder: (context, index) => CustomFoodBox(
+                              onPressed: () {
+                                categoryListProvider
                                             .categories[index].strCategory !=
                                         null
-                                    ? categoryListProvider
-                                        .categories[index].strCategory!
-                                    : "N/A")),
-                      ),
+                                    ? Navigator.push(
+                                        context,
+                                        CupertinoPageRoute(
+                                            builder: (c) => FoodListScreen(
+                                                categoryName:
+                                                    categoryListProvider
+                                                        .categories[index]
+                                                        .strCategory!)))
+                                    : showDialog(
+                                        context: context,
+                                        builder: (ctx) => const ErrorDialog(
+                                              errorMessage:
+                                                  "Category Is Not Active",
+                                            ));
+                              },
+                              image: categoryListProvider
+                                          .categories[index].strCategoryThumb !=
+                                      null
+                                  ? categoryListProvider
+                                      .categories[index].strCategoryThumb!
+                                  : null,
+                              name: categoryListProvider
+                                          .categories[index].strCategory !=
+                                      null
+                                  ? categoryListProvider
+                                      .categories[index].strCategory!
+                                  : "N/A")),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              Visibility(
-                  visible: categoryListProvider.isLoading,
-                  child: const Center(
-                    child: CircularProgressIndicator(),
-                  ))
-            ],
-          );
-        }),
-      ),
+            ),
+            Visibility(
+                visible: categoryListProvider.isLoading,
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ))
+          ],
+        );
+      }),
     );
   }
 }

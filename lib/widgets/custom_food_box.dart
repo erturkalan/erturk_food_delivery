@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class CustomFoodBox extends StatelessWidget {
-  final String title;
+  final String name;
   final String? image;
   final Function onPressed;
   final bool isFoodList;
@@ -20,7 +20,7 @@ class CustomFoodBox extends StatelessWidget {
       this.isFavouriteActive = false,
       required this.onPressed,
       this.image,
-      required this.title,
+      required this.name,
       this.addToBasketButtonPressed,
       this.favouriteButtonPressed,
       this.isInBasket = false,
@@ -76,7 +76,7 @@ class CustomFoodBox extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              title,
+                              name,
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
