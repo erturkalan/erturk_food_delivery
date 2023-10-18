@@ -77,7 +77,7 @@ class _BottomNavPageState extends State<BottomNavPage> {
                               child: Center(
                                 child: Text(
                                   foodListProvider.basketQuantity.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.indigo, fontSize: 13),
                                 ),
                               ),

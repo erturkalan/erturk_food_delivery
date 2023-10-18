@@ -4,7 +4,7 @@ import 'package:lean_scale_food_app/scenes/food_list/food_list_screen.dart';
 import 'package:lean_scale_food_app/scenes/home/category_list_provider.dart';
 import 'package:lean_scale_food_app/utils/constants.dart';
 import 'package:lean_scale_food_app/widgets/custom_food_box.dart';
-import 'package:lean_scale_food_app/widgets/error_dialog.dart';
+import 'package:lean_scale_food_app/widgets/custom_dialog.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -25,7 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.white,
               appBar: AppBar(
                 backgroundColor: Colors.redAccent,
-                title: const Text(Constants.appName),
+                title: const Text(
+                  Constants.appName,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 22),
+                ),
                 automaticallyImplyLeading: false,
                 centerTitle: true,
               ),
@@ -56,9 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         .strCategory!)))
                                     : showDialog(
                                         context: context,
-                                        builder: (ctx) => const ErrorDialog(
-                                              errorMessage:
-                                                  "Category Is Not Active",
+                                        builder: (ctx) => const CustomDialog(
+                                              message: "Category Is Not Active",
                                             ));
                               },
                               image: categoryListProvider

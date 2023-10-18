@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:lean_scale_food_app/main.dart';
 import 'package:lean_scale_food_app/scenes/food_list/food_list_provider.dart';
 import 'package:lean_scale_food_app/utils/constants.dart';
 import 'package:lean_scale_food_app/widgets/basket_line_box.dart';
+import 'package:lean_scale_food_app/widgets/custom_dialog.dart';
 import 'package:provider/provider.dart';
 
 class BasketScreen extends StatefulWidget {
@@ -34,7 +36,7 @@ class _BasketScreenState extends State<BasketScreen> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  // do something
+                  foodListProvider.clearAllBasket();
                 },
               ),
             )
@@ -61,6 +63,8 @@ class _BasketScreenState extends State<BasketScreen> {
                         increasedPressed: () =>
                             foodListProvider.increaseQuantity(meal),
                         quantity: meal.quantity,
+                        onDelete: () =>
+                            foodListProvider.deleteOneLineBasket(meal),
                       );
                     }),
               ),
@@ -86,4 +90,12 @@ class _BasketScreenState extends State<BasketScreen> {
       );
     }));
   }
+}
+
+void showMyDialog() {
+  showDialog(
+      context: navigatorKey.currentContext!,
+      builder: (ctx) => const CustomDialog(
+            message: "Network Error!",
+          ));
 }

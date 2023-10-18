@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:lean_scale_food_app/main.dart';
-import 'package:lean_scale_food_app/widgets/error_dialog.dart';
+import 'package:lean_scale_food_app/widgets/custom_dialog.dart';
 
 class ApiService {
-
   Future<String> get(String baseUrl, String path,
       {Map<String, dynamic>? parameters}) async {
     try {
@@ -76,7 +75,7 @@ class ApiService {
 void showMyDialog() {
   showDialog(
       context: navigatorKey.currentContext!,
-      builder: (ctx) => const ErrorDialog(
-            errorMessage: "Network Error!",
+      builder: (ctx) => const CustomDialog(
+            message: "Network Error!",
           ));
 }

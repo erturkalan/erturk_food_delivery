@@ -100,7 +100,7 @@ class FoodListProvider extends ChangeNotifier {
           _foodBasket.firstWhere((element) => meal.idMeal == element.idMeal);
       myMeal.quantity--;
       if (myMeal.quantity == 0) {
-        _foodBasket.removeWhere((element) => element.idMeal == meal.idMeal);
+        _foodBasket.removeWhere((element) => element.idMeal == myMeal.idMeal);
       }
       await _basketBox.clear();
       var basketAsMap = _foodBasket.map((e) => e.toJson()).toList();
@@ -147,8 +147,21 @@ class FoodListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearAllBasket() {
+  void deleteOneLineBasket(MealModel meal) async {
+    _foodBasket.removeWhere((element) => element.idMeal == meal.idMeal);
+    await _basketBox.clear();
+    var basketAsMap = _foodBasket.map((e) => e.toJson()).toList();
+    for (var item in basketAsMap) {
+      await _basketBox.put(item['idMeal'], item);
+    }
+    updateQuantity();
+    notifyListeners();
+  }
+
+  void clearAllBasket() async {
     _foodBasket.clear();
-    _basketBox.clear();
+    await _basketBox.clear();
+    updateQuantity();
+    notifyListeners();
   }
 }
