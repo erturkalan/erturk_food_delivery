@@ -2,12 +2,17 @@
 
 Hello, I am Erturk Alan and this is a Flutter project.
 
-Used packages
+Used packages:
 
-provider: 
-hive:
-http:
-cached_network_image:
+provider: for state management I used provider because it's easy and most popular state management package but I know Bloc and Getx too.
+
+hive: for local data storing I used hive because it's fast, light and it's most common practice.
+
+http: for api calls I used http package because, I started with this package and it's most common I think.
+
+cached_network_image: I use cached network image generally because it caches images and it's easy.
+
+flutter_slidable: For deleting basket lines with slide gesture, I used this package because it's better in terms of user experience.
 
 
 ## Getting Started
