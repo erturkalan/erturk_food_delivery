@@ -1,4 +1,4 @@
-# lean_scale_food_app
+# erturk_food_app
 
 Hello, I am Erturk Alan and this is a Flutter project.
 
